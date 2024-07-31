@@ -1,0 +1,7 @@
+beautifulsoup4==4.12.3
+Flask==3.0.3
+pybaseball==2.2.7
+pytz==2023.4
+Requests==2.32.3
+selenium==4.22.0
+webdriver_manager==4.0.1
