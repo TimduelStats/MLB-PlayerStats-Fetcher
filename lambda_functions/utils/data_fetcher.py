@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
-import json
 from datetime import datetime, timedelta
-import pytz
 import os
 from .stats_process import PlayerStatsProcessor
 # Selenium imports
