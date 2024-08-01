@@ -7,14 +7,15 @@ RUN dnf install -y atk cups-libs gtk3 libXcomposite alsa-lib \
     xorg-x11-xauth dbus-glib dbus-glib-devel nss mesa-libgbm jq unzip
 
 # Copy and run the Chrome installer script
-COPY ./chrome-installer.sh ./chrome-installer.sh
-RUN ./chrome-installer.sh
-RUN rm ./chrome-installer.sh
+COPY chrome-installer.sh /chrome-installer.sh
+RUN chmod +x /chrome-installer.sh && /chrome-installer.sh && rm /chrome-installer.sh
 
 # Install Python dependencies
-RUN pip install selenium
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 
-# Copy function code
-COPY functions/ /var/task/
+# Copy function and utility code
+COPY functions/ /var/task/functions/
+COPY utils/ /var/task/utils/
 
-CMD [ "fetch_stats.lambda_handler" ]
+CMD [ "functions.fetch_stats.lambda_handler" ]

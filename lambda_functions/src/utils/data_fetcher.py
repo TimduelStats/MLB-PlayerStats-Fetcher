@@ -1,17 +1,46 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-import os
-from .stats_process import PlayerStatsProcessor
-# Selenium imports
-from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from tempfile import mkdtemp
 
+
+from .stats_process import PlayerStatsProcessor
 
 class FangraphsScraper:
+    @staticmethod
+    def initialise_driver():
+        chrome_options = ChromeOptions()
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-dev-tools")
+        chrome_options.add_argument("--no-zygote")
+        chrome_options.add_argument("--single-process")
+        chrome_options.add_argument(f"--user-data-dir={mkdtemp()}")
+        chrome_options.add_argument(f"--data-path={mkdtemp()}")
+        chrome_options.add_argument(f"--disk-cache-dir={mkdtemp()}")
+        chrome_options.add_argument("--remote-debugging-pipe")
+        chrome_options.add_argument("--verbose")
+        chrome_options.add_argument("--log-path=/tmp")
+        chrome_options.binary_location = "/opt/chrome/chrome-linux64/chrome"
+
+        service = ChromeService(
+            executable_path="/opt/chrome-driver/chromedriver-linux64/chromedriver",
+        )
+
+        driver = webdriver.Chrome(
+            service=service,
+            options=chrome_options
+        )
+
+        return driver
+
     @staticmethod
     def fetch_data(url):
         """
@@ -23,17 +52,7 @@ class FangraphsScraper:
         Returns:
             str: The text content of the response.
         """
-        # Use Selenium to fetch the data
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # Run in headless mode
-        driver_path = ChromeDriverManager().install()
-        if driver_path:
-            driver_name = driver_path.split('/')[-1]
-            if driver_name!="chromedriver":
-                driver_path = "/".join(driver_path.split('/')[:-1]+["chromedriver"])
-                os.chmod(driver_path, 0o755)
-        driver = webdriver.Chrome(service=ChromeService(driver_path), options=options)
-
+        driver = FangraphsScraper.initialise_driver()
         driver.get(url)
         # Wait for the page to load
         WebDriverWait(driver, 10).until(

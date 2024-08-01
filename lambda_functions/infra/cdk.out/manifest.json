@@ -1,0 +1,155 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "InfraStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "InfraStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "InfraStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "InfraStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d31c6c54a016a8ac44798a6241c02abb85bb4a47dc599db29e6b72575ad08b14.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "InfraStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "InfraStack.assets"
+      ],
+      "metadata": {
+        "/InfraStack/SeleniumLambda/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SeleniumLambdaServiceRoleB32F5988"
+          }
+        ],
+        "/InfraStack/SeleniumLambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SeleniumLambda29CE2DA3"
+          }
+        ],
+        "/InfraStack/Endpoint/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointEEF1FD8F"
+          }
+        ],
+        "/InfraStack/Endpoint/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointCloudWatchRoleC3C64E0F"
+          }
+        ],
+        "/InfraStack/Endpoint/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointAccountB8304247"
+          }
+        ],
+        "/InfraStack/Endpoint/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointDeployment318525DAd6c5283819bb7df3fded4513864738d9"
+          }
+        ],
+        "/InfraStack/Endpoint/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointDeploymentStageprodB78BEEA0"
+          }
+        ],
+        "/InfraStack/Endpoint/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Endpoint8024A810"
+          }
+        ],
+        "/InfraStack/Endpoint/Default/GET/ApiPermission.InfraStackEndpoint9CB05D7C.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointGETApiPermissionInfraStackEndpoint9CB05D7CGET141BD8C0"
+          }
+        ],
+        "/InfraStack/Endpoint/Default/GET/ApiPermission.Test.InfraStackEndpoint9CB05D7C.GET..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointGETApiPermissionTestInfraStackEndpoint9CB05D7CGET56CDFB83"
+          }
+        ],
+        "/InfraStack/Endpoint/Default/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointGET948BD053"
+          }
+        ],
+        "/InfraStack/Endpoint/UsagePlan/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointUsagePlan91C7F35A"
+          }
+        ],
+        "/InfraStack/Endpoint/UsagePlan/UsagePlanKeyResource:InfraStackEndpointApiKey65568AFF": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointUsagePlanUsagePlanKeyResourceInfraStackEndpointApiKey65568AFF9551720B"
+          }
+        ],
+        "/InfraStack/Endpoint/ApiKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EndpointApiKeyE5257FB8"
+          }
+        ],
+        "/InfraStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/InfraStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/InfraStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/InfraStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "InfraStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
