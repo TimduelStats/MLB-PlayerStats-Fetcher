@@ -45,24 +45,6 @@ class FangraphsScraper:
         html_content = driver.page_source
         driver.quit()
         return html_content
-
-    @staticmethod
-    def load_data(file_path="../../../../data/fangraphs_data.json"):
-        """
-        Loads the data from a JSON file.
-
-        Args:
-            file_path (str): The path to the JSON file.
-
-        Returns:
-            dict: The loaded data.
-        """
-        try:
-            with open(file_path, "r", encoding='utf-8') as f:
-                data = json.load(f)
-            return data
-        except FileNotFoundError:
-            return None
         
     @staticmethod
     def parse_data(html_content, type):
@@ -115,21 +97,8 @@ class FangraphsScraper:
 
         return data
 
-    
     @staticmethod
-    def save_data(data, file_path="../../../../data/fangraphs_data.json"):
-        """
-        Saves the data to a JSON file.
-
-        Args:
-            data (dict): The data to save.
-            file_path (str): The path to the JSON file.
-        """
-        with open(file_path, "w", encoding='utf-8') as f:
-            json.dump(data, f, indent=4)
-        
-    @staticmethod
-    def get_or_fetch_data(url, type, file_path):
+    def get_data(url, type, file_path):
         """
         Get the data from a JSON file if it exists and is not outdated,
         otherwise fetch it from the URLs and save it to the file.
@@ -141,23 +110,10 @@ class FangraphsScraper:
         Returns:
             dict: The data.
         """
-        est = pytz.timezone('US/Eastern')
-        now_est = datetime.now(est)
-
-        # Check if the file exists and is not outdated
-        if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
-            file_mtime = datetime.fromtimestamp(os.path.getmtime(file_path), tz=est)
-            file_date = file_mtime.date()
-            today_date = now_est.date()
-
-            if file_date == today_date:
-                return FangraphsScraper.load_data(file_path)
-        
         # Fetch the data
         html_content = FangraphsScraper.fetch_data(url)
         if html_content:
             parsed_data = FangraphsScraper.parse_data(html_content, type)
-        FangraphsScraper.save_data(parsed_data, file_path)
         
         return parsed_data
     
