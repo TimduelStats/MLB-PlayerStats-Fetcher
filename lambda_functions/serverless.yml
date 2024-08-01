@@ -1,0 +1,24 @@
+service: mlb-data-fetcher
+
+provider:
+  name: aws # cloud provider
+  runtime: python3.12 # Specify your Python runtime
+  architecture: x86_64 # You can choose arm64 if you prefer
+  stage: dev
+  region: us-east-2
+
+functions:
+  fetchStats:
+    handler: functions/fetch_stats.lambda_handler # Entry point for the function in your code
+    events:
+      - schedule:
+          # Specifies that the function will be triggered by a CloudWatch Events rule.
+          name: daily8amEST # Name of the scheduled event
+          description: Runs the fetchStats function every day at 8 AM EST
+          rate: cron(0 13 * * ? *) # Cron expression to run daily at 8 AM EST
+          enabled: true
+
+# This section lists the Serverless Framework plugins used by your service.
+plugins:
+  # This plugin automatically installs Python dependencies defined in requirements.txt and packages them with your Lambda functions.
+  - serverless-python-requirements

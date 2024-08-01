@@ -39,9 +39,3 @@ def lambda_handler(event, context):
         'body': json.dumps('Data fetched and saved successfully')
     }
 
-if __name__ == "__main__":
-    # Mock event and context for local testing
-    event = {}
-    context = {}
-    response = lambda_handler(event, context)
-    print(response)
