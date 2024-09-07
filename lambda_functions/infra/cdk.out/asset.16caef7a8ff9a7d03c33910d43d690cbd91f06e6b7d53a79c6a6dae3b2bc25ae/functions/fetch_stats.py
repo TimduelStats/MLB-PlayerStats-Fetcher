@@ -9,18 +9,23 @@ sys.path.append(parent_dir)
 
 from utils.data_fetcher import FangraphsScraper
 from utils.s3_uploader import upload_to_s3
+from utils.s3_uploader import delete_from_s3
 
 BUCKET_NAME = 'timjimmymlbdata'
 
 def lambda_handler(event, context):
+    # Delete existing files from S3 first
+    delete_from_s3(BUCKET_NAME, 'fangraphs_fb_data.json');
+    delete_from_s3(BUCKET_NAME, 'fangraphs_barrel_hh_data.json');
+
     base_url_fb = "https://www.fangraphs.com/leaders/major-league"
     url_fb = FangraphsScraper.generate_url(base_url_fb, "fb")
     data_fb = FangraphsScraper.get_data(url_fb, "fb", file_path="/tmp/fangraphs_fb_data.json")
-
+    print("getting data for barrel_hh")
     base_url_barrel_hh = "https://www.fangraphs.com/leaders/major-league"
     url_barrel_hh = FangraphsScraper.generate_url(base_url_barrel_hh, "barrel_hh")
     data_barrel_hh = FangraphsScraper.get_data(url_barrel_hh, "barrel_hh", file_path="/tmp/fangraphs_barrel_hh_data.json")
-
+    print("get data for barrel_hh")
     # Write to /tmp directory for Lambda environment
     fb_data_path = '/tmp/fangraphs_fb_data.json'
     barrel_hh_data_path = '/tmp/fangraphs_barrel_hh_data.json'

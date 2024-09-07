@@ -39,10 +39,10 @@
    "Properties": {
     "Code": {
      "ImageUri": {
-      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:fa84002bf6107ee7099ec606e82c338727d3ec1df01c7bd444b7edfe57f046f3"
+      "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:16caef7a8ff9a7d03c33910d43d690cbd91f06e6b7d53a79c6a6dae3b2bc25ae"
      }
     },
-    "MemorySize": 512,
+    "MemorySize": 3000,
     "PackageType": "Image",
     "Role": {
      "Fn::GetAtt": [
@@ -50,14 +50,14 @@
       "Arn"
      ]
     },
-    "Timeout": 40
+    "Timeout": 300
    },
    "DependsOn": [
     "SeleniumLambdaServiceRoleB32F5988"
    ],
    "Metadata": {
     "aws:cdk:path": "InfraStack/SeleniumLambda/Resource",
-    "aws:asset:path": "asset.fa84002bf6107ee7099ec606e82c338727d3ec1df01c7bd444b7edfe57f046f3",
+    "aws:asset:path": "asset.16caef7a8ff9a7d03c33910d43d690cbd91f06e6b7d53a79c6a6dae3b2bc25ae",
     "aws:asset:dockerfile-path": "Dockerfile",
     "aws:asset:property": "Code.ImageUri"
    }

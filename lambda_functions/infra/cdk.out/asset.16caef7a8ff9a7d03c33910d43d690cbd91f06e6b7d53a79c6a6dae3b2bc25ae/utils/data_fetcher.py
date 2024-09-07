@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from tempfile import mkdtemp
-
+import logging
 
 from .stats_process import PlayerStatsProcessor
 
@@ -54,10 +54,21 @@ class FangraphsScraper:
         """
         driver = FangraphsScraper.initialise_driver()
         driver.get(url)
-        # Wait for the page to load
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".fg-data-grid.table-type tbody tr"))
-        )
+         # Wait for the page to load
+        try:
+            WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".fg-data-grid.table-type tbody tr"))
+            )
+        except TimeoutException as e:
+            logging.error("TimeoutException: Element not found within the specified time.")
+            logging.error(driver.page_source)  # Print the page source for debugging
+            driver.quit()
+            raise e
+        except Exception as e:
+            logging.error("An error occurred while fetching data.")
+            logging.error(str(e))
+            driver.quit()
+            raise e
 
         html_content = driver.page_source
         driver.quit()

@@ -103,10 +103,10 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "imageUri": {
-                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:fa84002bf6107ee7099ec606e82c338727d3ec1df01c7bd444b7edfe57f046f3"
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:16caef7a8ff9a7d03c33910d43d690cbd91f06e6b7d53a79c6a6dae3b2bc25ae"
                       }
                     },
-                    "memorySize": 512,
+                    "memorySize": 3000,
                     "packageType": "Image",
                     "role": {
                       "Fn::GetAtt": [
@@ -114,7 +114,7 @@
                         "Arn"
                       ]
                     },
-                    "timeout": 40
+                    "timeout": 300
                   }
                 },
                 "constructInfo": {

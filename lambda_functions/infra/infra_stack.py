@@ -14,8 +14,8 @@ class InfraStack(Stack):
         lambda_function = lambda_.DockerImageFunction(
             self, "SeleniumLambda",
             code=lambda_.DockerImageCode.from_image_asset("../src"),
-            timeout=Duration.seconds(120),
-            memory_size=1024,
+            timeout=Duration.seconds(300),
+            memory_size=3000,
         )
 
         api = apigateway.LambdaRestApi(
