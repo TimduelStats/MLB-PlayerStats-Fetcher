@@ -103,7 +103,7 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "imageUri": {
-                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:16caef7a8ff9a7d03c33910d43d690cbd91f06e6b7d53a79c6a6dae3b2bc25ae"
+                        "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:643ea0b2093646729edfb4e90ef0d0cddba6520af6a5a92f168588cc077c59b2"
                       }
                     },
                     "memorySize": 3000,
