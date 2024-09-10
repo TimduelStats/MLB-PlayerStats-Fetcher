@@ -11,13 +11,17 @@ class InfraStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
+        # This creates a Lambda function that runs a Docker image.
         lambda_function = lambda_.DockerImageFunction(
             self, "SeleniumLambda",
+            # Build a Docker image from the Dockerfile located in the ../src directory.
+            # Push the built image to Amazon Elastic Container Registry (ECR).
             code=lambda_.DockerImageCode.from_image_asset("../src"),
             timeout=Duration.seconds(300),
             memory_size=3000,
         )
 
+        # Todo: no usage for below code
         api = apigateway.LambdaRestApi(
             self, "Endpoint",
             handler=lambda_function,

@@ -3,8 +3,10 @@
 # Virtual environment
 venv/
 # json file
-# *.json
+*.json
 
 node_modules/
 
 __pycache__/
+
+cdk.out/

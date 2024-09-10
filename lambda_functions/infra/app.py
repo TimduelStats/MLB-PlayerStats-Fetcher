@@ -4,4 +4,4 @@ from infra_stack import InfraStack
 
 app = cdk.App()
 InfraStack(app, "InfraStack")
-app.synth()
+app.synth() #  It takes the Python code in InfraStack and converts it into a CloudFormation template
