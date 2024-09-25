@@ -146,7 +146,7 @@ class FangraphsScraper:
         return parsed_data
     
     @staticmethod
-    def get_past_six_days_dates():
+    def get_past_fifteen_days_dates():
         """
         Get the dates for the past six days in ISO format.
 
@@ -154,7 +154,7 @@ class FangraphsScraper:
             tuple: Start date and end date in ISO format.
         """
         end_date = datetime.now() - timedelta(days=1)
-        start_date = end_date - timedelta(days=5)
+        start_date = end_date - timedelta(days=14)
         return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
 
     @staticmethod
@@ -169,7 +169,7 @@ class FangraphsScraper:
         Returns:
             str: The generated URL.
         """
-        start_date, end_date = FangraphsScraper.get_past_six_days_dates()
+        start_date, end_date = FangraphsScraper.get_past_fifteen_days_dates()
         print(start_date, end_date)
         if type == "fb":
             print(f"{base_url}?pos=all&stats=bat&lg=all&season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&qual=5&sortcol=1&sortdir=asc&type=23&month=1000&startdate={start_date}&enddate={end_date}")
