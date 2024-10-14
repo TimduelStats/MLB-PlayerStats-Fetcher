@@ -15,7 +15,7 @@ class FangraphsScraper:
     @staticmethod
     def initialise_driver():
         chrome_options = ChromeOptions()
-        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--headless=new")  # Use new headless mode
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
@@ -26,8 +26,9 @@ class FangraphsScraper:
         chrome_options.add_argument(f"--data-path={mkdtemp()}")
         chrome_options.add_argument(f"--disk-cache-dir={mkdtemp()}")
         chrome_options.add_argument("--remote-debugging-pipe")
+        chrome_options.add_argument("--window-size=1920,1080")  # Set proper window size
         chrome_options.add_argument("--verbose")
-        chrome_options.add_argument("--log-path=/tmp")
+        chrome_options.add_argument("--log-path=/tmp/chrome.log")
         chrome_options.binary_location = "/opt/chrome/chrome-linux64/chrome"
 
         service = ChromeService(
@@ -172,7 +173,7 @@ class FangraphsScraper:
         start_date, end_date = FangraphsScraper.get_past_fifteen_days_dates()
         print(start_date, end_date)
         if type == "fb":
-            print(f"{base_url}?pos=all&stats=bat&lg=all&season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&qual=5&sortcol=1&sortdir=asc&type=23&month=1000&startdate={start_date}&enddate={end_date}")
-            return f"{base_url}?pos=all&stats=bat&lg=all&season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&qual=5&sortcol=1&sortdir=asc&type=23&month=1000&startdate={start_date}&enddate={end_date}"
+            print(f"{base_url}?season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&sortcol=1&sortdir=asc&type=23&month=1000&startdate={start_date}&enddate={end_date}")
+            return f"{base_url}?season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&sortcol=1&sortdir=asc&type=23&month=1000&startdate={start_date}&enddate={end_date}"
         elif type == "barrel_hh":
-            return f"{base_url}?pos=all&stats=bat&lg=all&season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&qual=5&sortcol=1&sortdir=asc&type=24&month=1000&startdate={start_date}&enddate={end_date}"
+            return f"{base_url}?season=2024&season1=2024&ind=0&team=0&pageitems=2000000000&sortcol=1&sortdir=asc&type=24&month=1000&startdate={start_date}&enddate={end_date}"
