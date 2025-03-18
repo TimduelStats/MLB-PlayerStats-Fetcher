@@ -1,6 +1,8 @@
 import boto3
 import logging
 
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 # Read the list of existing buckets
 def list_buckets():
@@ -15,7 +17,7 @@ def list_buckets():
                 print(f'Bucket: {bucket["Name"]}')
 
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         return False
     return True
 
@@ -36,7 +38,7 @@ def upload_to_s3(file_path, bucket_name, object_name):
         s3 = boto3.client('s3')
         s3.upload_file(file_path, bucket_name, object_name)
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         return False
     return True
 
@@ -56,6 +58,6 @@ def delete_from_s3(bucket, key_name):
     try:
         s3.delete_object(Bucket=bucket, Key=key_name)
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         return False
     return True
